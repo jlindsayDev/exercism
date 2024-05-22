@@ -1,0 +1,10 @@
+[tool.poetry]
+name = "exercism-python"
+version = "0.1.0"
+description = ""
+authors = []
+readme = "README.md"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
