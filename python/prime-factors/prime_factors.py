@@ -1,6 +1,25 @@
-from math import sqrt
+from math import sqrt, log
 
 def factors(value):
+    factor_list = []
+
+    # reduce even numbers to odd primes
+    while value % 2 == 0:
+        factor_list.append(2)
+        value //= 2
+
+    # no need to compute primes since we know we'll never encounter lower values
+    num = 3
+    while value >= num:
+        if value % num == 0:
+            factor_list.append(num)
+            value //= num
+        else:
+            num += 2
+
+    return factor_list
+
+def old_factors(value):
     primes = primes_generator()
     factor_list = []
 
