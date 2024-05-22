@@ -8,11 +8,11 @@ of a module and its functions and/or classes.
 """
 
 
-#TODO: define the 'EXPECTED_BAKE_TIME' constant.
+EXPECTED_BAKE_TIME = 40
+PREPARATION_TIME_PER_LAYER = 2
 
 
-#TODO: Remove 'pass' and complete the 'bake_time_remaining()' function below.
-def bake_time_remaining():
+def bake_time_remaining(elapsed_bake_time):
     """Calculate the bake time remaining.
 
     :param elapsed_bake_time: int - baking time already elapsed.
@@ -23,13 +23,24 @@ def bake_time_remaining():
     based on the `EXPECTED_BAKE_TIME`.
     """
 
-    pass
+    return EXPECTED_BAKE_TIME - elapsed_bake_time
 
 
-#TODO: Define the 'preparation_time_in_minutes()' function below.
-# You might also consider using 'PREPARATION_TIME' here, if you have it defined.
+def preparation_time_in_minutes(number_of_layers):
+    """Calculate preparation time.
+
+    :param number_of_layers: int
+    :return int - preparation time (in minutes) assuming each layer takes 2 minutes to prepare.
+    """
+
+    return PREPARATION_TIME_PER_LAYER * number_of_layers
 
 
+def elapsed_time_in_minutes(number_of_layers, elapsed_bake_time):
+    """Calculate elapsed time.
 
-#TODO: define the 'elapsed_time_in_minutes()' function below.
-# Remember to add a docstring (you can copy and then alter the one from bake_time_remaining.)
+    :param number_of_layers: int
+    :param elapsed_bake_time: int
+    """
+
+    return preparation_time_in_minutes(number_of_layers) + elapsed_bake_time
