@@ -1,6 +1,10 @@
 """Functions to automate Conda airlines ticketing system."""
 
 
+SEATS_PER_ROW = 4
+TICKET_CODE_LENGTH = 12
+
+
 def generate_seat_letters(number):
     """Generate a series of letters for airline seats.
 
@@ -14,7 +18,8 @@ def generate_seat_letters(number):
 
     """
 
-    pass
+    for n in range(number):
+        yield chr(ord('A') + (n % SEATS_PER_ROW))
 
 
 def generate_seats(number):
@@ -34,7 +39,14 @@ def generate_seats(number):
 
     """
 
-    pass
+    row = 1
+    while number > 0:
+        if row != 13:
+            remaining_seats = min(number, SEATS_PER_ROW)
+            for letter in generate_seat_letters(remaining_seats):
+                yield f'{row}{letter}'
+            number -= remaining_seats
+        row += 1
 
 def assign_seats(passengers):
     """Assign seats to passengers.
@@ -46,7 +58,8 @@ def assign_seats(passengers):
 
     """
 
-    pass
+    seats = generate_seats(len(passengers))
+    return { passenger: next(seats) for passenger in passengers }
 
 def generate_codes(seat_numbers, flight_id):
     """Generate codes for a ticket.
@@ -57,4 +70,5 @@ def generate_codes(seat_numbers, flight_id):
 
     """
 
-    pass
+    for seat_number in seat_numbers:
+        yield f'{seat_number + flight_id}'.ljust(TICKET_CODE_LENGTH, '0')
