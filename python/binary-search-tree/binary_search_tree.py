@@ -19,12 +19,11 @@ class TreeNode:
 
 class BinarySearchTree:
     def __init__(self, tree_data):
-        if not tree_data:
-            self.root = None
-        else:
-            self.root = TreeNode(tree_data[0])
-            for value in tree_data[1:]:
-                self.insert(self.root, value)
+        self.root = None
+
+        if tree_data:
+            for value in tree_data:
+                self.root = self.insert(self.root, value)
 
     def __iter__(self):
         yield from self.data()
