@@ -9,14 +9,12 @@ class TreeNode:
 
     def __iter__(self):
         if self.left:
-            for n in self.left:
-                yield n
+            yield from self.left
 
         yield self.data
 
         if self.right:
-            for n in self.right:
-                yield n
+            yield from self.right
 
 
 class BinarySearchTree:
@@ -29,7 +27,7 @@ class BinarySearchTree:
                 self.insert(self.root, value)
 
     def __iter__(self):
-        return iter(self.data())
+        yield from self.data()
 
     def data(self):
         return self.root
