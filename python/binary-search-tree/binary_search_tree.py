@@ -7,35 +7,42 @@ class TreeNode:
     def __str__(self):
         return f'TreeNode(data={self.data}, left={self.left}, right={self.right})'
 
+    def __iter__(self):
+        if self.left:
+            for n in self.left:
+                yield n
+
+        yield self.data
+
+        if self.right:
+            for n in self.right:
+                yield n
+
 
 class BinarySearchTree:
     def __init__(self, tree_data):
-        def insert(node, value):
-            if node == None:
-                node = TreeNode(value)
-            elif value <= node.data:
-                node.left = insert(node.left, value)
-            else:
-                node.right = insert(node.right, value)
-            return node
+        if not tree_data:
+            self.root = None
+        else:
+            self.root = TreeNode(tree_data[0])
+            for value in tree_data[1:]:
+                self.insert(self.root, value)
 
-        self.head = None
-
-        for value in tree_data:
-            self.head = insert(self.head, value)
+    def __iter__(self):
+        return iter(self.data())
 
     def data(self):
-        return self.head
+        return self.root
 
     def sorted_data(self):
-        tree_data = []
+        return list(self)
 
-        def traverse(node):
-            if node == None:
-                return
-            traverse(node.left)
-            tree_data.append(node.data)
-            traverse(node.right)
-
-        traverse(self.head)
-        return tree_data
+    @classmethod
+    def insert(cls, node, value):
+        if node == None:
+            node = TreeNode(value)
+        elif value <= node.data:
+            node.left = cls.insert(node.left, value)
+        else:
+            node.right = cls.insert(node.right, value)
+        return node
