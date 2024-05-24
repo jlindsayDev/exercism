@@ -23,10 +23,10 @@
     "typescript": "~5.0.4"
   },
   "scripts": {
-    "test": "yarn lint:types && jest --no-cache",
-    "lint": "yarn lint:types && yarn lint:ci",
-    "lint:types": "yarn tsc --noEmit -p .",
+    "test": "pnpm lint:types && jest --no-cache",
+    "lint": "pnpm lint:types && pnpm lint:ci",
+    "lint:types": "pnpm tsc --noEmit -p .",
     "lint:ci": "eslint . --ext .tsx,.ts"
   },
-  "packageManager": "yarn@3.6.4"
+  "packageManager": "pnpm@9.1.2"
 }
