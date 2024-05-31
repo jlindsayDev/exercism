@@ -5,41 +5,6 @@ class RestAPI:
         users = [] if not database else database['users']
         self.database = {'users': { u['name']: u for u in users }}
 
-    @classmethod
-    def unformat_user(cls, user):
-        unformatted_user = {
-            'name': user['name'],
-            'balance': user['balance'],
-            'owes': {},
-        }
-
-        for name, amount in user['owes'].items():
-            if amount < 0:
-                user['owed_by'][name] = -amount
-        for name, amount in user['owed_by'].items():
-            if amount < 0:
-                user['owes'][name] = -amount
-
-        return unformatted_user
-
-    @classmethod
-    def format_user(cls, user):
-        formatted_user = {
-            'name': user['name'],
-            'balance': user['balance'],
-            'owes': {},
-            'owed_by': {},
-        }
-
-        for name, amount in user['owes'].items():
-            if amount > 0:
-                formatted_user['owes'][name] = amount
-            elif amount < 0:
-                formatted_user['owed_by'][name] = -amount
-
-        return formatted_user
-
-
     def get(self, url, payload=None):
         payload = {} if not payload else json.loads(payload)
 
